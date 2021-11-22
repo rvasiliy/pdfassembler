@@ -4,10 +4,16 @@ import { PDFDocument } from 'pdfjs-dist/lib/core/document';
 // import { Lexer, Parser } from 'pdfjs-dist/lib/core/parser';
 import { PDFManager, LocalPdfManager } from 'pdfjs-dist/lib/core/pdf_manager';
 import { Dict, Name, Ref } from 'pdfjs-dist/lib/core/primitives';
-import {
-  DecodeStream, Stream, FlateStream, PredictorStream, DecryptStream,
-  Ascii85Stream, RunLengthStream, LZWStream
-} from 'pdfjs-dist/lib/core/stream';
+
+import { DecodeStream } from 'pdfjs-dist/lib/core/decode_stream';
+import { Stream } from 'pdfjs-dist/lib/core/stream';
+import { FlateStream } from 'pdfjs-dist/lib/core/flate_stream';
+import { PredictorStream } from 'pdfjs-dist/lib/core/predictor_stream';
+import { DecryptStream } from 'pdfjs-dist/lib/core/decrypt_stream';
+import { Ascii85Stream } from 'pdfjs-dist/lib/core/ascii_85_stream';
+import { RunLengthStream } from 'pdfjs-dist/lib/core/run_length_stream';
+import { LZWStream } from 'pdfjs-dist/lib/core/lzw_stream';
+
 import { arraysToBytes, bytesToString } from 'pdfjs-dist/lib/shared/util';
 
 import { deflate } from 'pako';
@@ -129,7 +135,7 @@ export class PDFAssembler {
       file instanceof Blob ?
         new Promise((resolve, reject) => {
           const fileReader = new FileReader();
-          fileReader.onload = () => resolve(fileReader.result);
+          fileReader.onload = () => resolve(fileReader.result as ArrayBuffer);
           fileReader.onerror = () => reject(fileReader.error);
           fileReader.readAsArrayBuffer(<Blob>file);
         }) :
@@ -137,7 +143,7 @@ export class PDFAssembler {
   }
 
   resolveNodeRefs(
-    node = this.pdfManager.pdfDocument.catalog.catDict, name?, parent?, contents = false
+    node = this.pdfManager.pdfDocument.xref.getCatalogObj(), name?, parent?, contents = false
   ) {
     if (node instanceof Ref) {
       const refKey = `${node.num}-${node.gen}`;
