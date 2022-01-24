@@ -1,20 +1,20 @@
-import { PDFDocument } from 'pdfjs-dist/lib/core/document';
+import { PDFDocument } from '@candy/pdfjs-dist/lib/core/document';
 // import { Jbig2Stream } from 'pdfjs-dist/lib/core/jbig2_stream';
 // import { JpegStream } from 'pdfjs-dist/lib/core/jpeg_stream';
 // import { Lexer, Parser } from 'pdfjs-dist/lib/core/parser';
-import { PDFManager, LocalPdfManager } from 'pdfjs-dist/lib/core/pdf_manager';
-import { Dict, Name, Ref } from 'pdfjs-dist/lib/core/primitives';
+import { PDFManager, LocalPdfManager } from '@candy/pdfjs-dist/lib/core/pdf_manager';
+import { Dict, Name, Ref } from '@candy/pdfjs-dist/lib/core/primitives';
 
-import { DecodeStream } from 'pdfjs-dist/lib/core/decode_stream';
-import { Stream } from 'pdfjs-dist/lib/core/stream';
-import { FlateStream } from 'pdfjs-dist/lib/core/flate_stream';
-import { PredictorStream } from 'pdfjs-dist/lib/core/predictor_stream';
-import { DecryptStream } from 'pdfjs-dist/lib/core/decrypt_stream';
-import { Ascii85Stream } from 'pdfjs-dist/lib/core/ascii_85_stream';
-import { RunLengthStream } from 'pdfjs-dist/lib/core/run_length_stream';
-import { LZWStream } from 'pdfjs-dist/lib/core/lzw_stream';
+import { DecodeStream } from '@candy/pdfjs-dist/lib/core/decode_stream';
+import { Stream } from '@candy/pdfjs-dist/lib/core/stream';
+import { FlateStream } from '@candy/pdfjs-dist/lib/core/flate_stream';
+import { PredictorStream } from '@candy/pdfjs-dist/lib/core/predictor_stream';
+import { DecryptStream } from '@candy/pdfjs-dist/lib/core/decrypt_stream';
+import { Ascii85Stream } from '@candy/pdfjs-dist/lib/core/ascii_85_stream';
+import { RunLengthStream } from '@candy/pdfjs-dist/lib/core/run_length_stream';
+import { LZWStream } from '@candy/pdfjs-dist/lib/core/lzw_stream';
 
-import { arraysToBytes, bytesToString } from 'pdfjs-dist/lib/shared/util';
+import { arraysToBytes, bytesToString } from '@candy/pdfjs-dist/lib/shared/util';
 
 import { deflate } from 'pako';
 import * as queue from 'promise-queue';
