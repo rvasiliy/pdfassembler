@@ -19,8 +19,8 @@ import { arraysToBytes, bytesToString } from '@candy/pdfjs-dist/lib/shared/util'
 import { deflate } from 'pako';
 import * as queue from 'promise-queue';
 
-export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array |
-  Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+import { TypedArray } from './types/TypedArray';
+import { isFlateStream } from './utils/isFlateStream';
 
 export type BinaryFile = Blob | File | ArrayBuffer | TypedArray;
 
@@ -208,6 +208,18 @@ export class PDFAssembler {
           objectNode.stream = node.getBytes();
           if (objectNode['/Filter'] instanceof Array && objectNode['/Filter'].length > 1) {
             objectNode['/Filter'].shift();
+
+            if (!isFlateStream(objectNode.stream )) {
+              const decodeIndex = objectNode['/Filter'].indexOf('/FlateDecode');
+
+              if (-1 < decodeIndex) {
+                objectNode['/Filter'].splice(decodeIndex, 1);
+              }
+            }
+
+            if (0 === objectNode['/Filter'].length) {
+              delete objectNode['/Filter'];
+            }
           } else {
             delete objectNode['/Filter'];
           }
