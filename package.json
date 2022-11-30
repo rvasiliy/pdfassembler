@@ -27,7 +27,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@candy/pdfjs-dist": "^2.12.210",
+    "@candy/pdfjs-dist": "^2.14.0",
     "pako": "^1.0.6",
     "promise-queue": "^2.2.5"
   },
